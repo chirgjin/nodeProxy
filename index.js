@@ -9,9 +9,9 @@ const port = process.env.PORT || 7777;
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
 const base = function (req) {
 	const host = () => {
-		return req.hostname.indexOf(HOSTNAME) > -1 ? req.hostname.replace('.' + req.hostname, '') : null;
+		return req.hostname.indexOf(HOSTNAME) > -1 ? 'http:\/\/' + req.hostname.replace('.' + HOSTNAME, '') : null;
 	};
-	
+	//console.log(host(), req.hostname, HOSTNAME)
 	return process.env.baseurl || process.env.BASEURL || host() || process.env.fallbackurl;
 };
 
