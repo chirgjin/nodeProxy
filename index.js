@@ -1,7 +1,9 @@
 const express = require("express");
 const http = require("http");
 const path = require("path");
-const request = require("request");
+const request = require("request").defaults({
+	jar : true
+});
 
 require('dotenv').config();
 
@@ -26,11 +28,11 @@ app.post("/__stats", express.json(), express.urlencoded(), (req,res) => {
 });
 
 app.use("*", (req,res) => {
-	let cookies = req.header("Cookie");
+	// let cookies = req.header("Cookie");
 	req.pipe( request({
 		url : base(req) + req.originalUrl,
-		headers : {
-			cookie : cookies
-		}
+		// headers : {
+			// cookie : cookies
+		// }
 	})).pipe(res);
 });
