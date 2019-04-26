@@ -8,7 +8,11 @@ require('dotenv').config();
 const port = process.env.PORT || 7777;
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
 const base = function (req) {
-	return process.env.baseurl || process.env.BASEURL || req.host.replace(HOSTNAME, '') || process.env.fallbackurl;
+	const host = () => {
+		return req.hostname.indexOf(HOSTNAME) > -1 ? req.hostname.replace('.' + hostname, '') : null;
+	};
+	
+	return process.env.baseurl || process.env.BASEURL || host() || process.env.fallbackurl;
 };
 
 const app = express();
