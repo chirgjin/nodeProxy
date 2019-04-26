@@ -26,5 +26,11 @@ app.post("/__stats", express.json(), express.urlencoded(), (req,res) => {
 });
 
 app.use("*", (req,res) => {
-	req.pipe( request( (base(req) + req.originalUrl) ) ).pipe(res);
+	let cookies = req.header("Cookie");
+	req.pipe( request({
+		url : base(req) + req.originalUrl,
+		headers : {
+			cookie : cookies
+		}
+	})).pipe(res);
 });
